@@ -37,28 +37,25 @@
   },
   "homepage": "https://github.com/vue-interface/activity-indicator/docs#readme",
   "dependencies": {
-    "@vue-interface/component-registry": "^0.1.5",
+    "@vue-interface/component-registry": "^0.2.0",
     "@vue-interface/utils": "^0.9.26",
     "core-js": "^3.6.5",
     "vue": "^2.6.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.7",
-    "@vue/cli-plugin-eslint": "^4.5.7",
     "@vue/cli-service": "^4.5.7",
     "@vuepress/plugin-register-components": "^1.6.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint": "^7.15.0",
+    "eslint-plugin-vue": "^7.2.0",
     "markdown-it-meta": "0.0.1",
     "vue-template-compiler": "^2.6.12",
     "vuepress": "^1.6.0",
-    "vuepress-plugin-template-constants": "^0.2.1",
-    "webpack-manifest-plugin": "^2.2.0"
+    "vuepress-plugin-template-constants": "^0.2.1"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
+  "sideEffects": [
+    "*.css",
+    "*.vue"
   ]
 }
