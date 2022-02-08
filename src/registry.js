@@ -1,27 +1,19 @@
 import { factory } from '@vue-interface/component-registry';
 
-var registry = factory();
+export const registry = factory();
 
-function get() {
+export function get() {
     return registry.get.apply(registry, arguments);
 }
 
-function register() {
+export function register() {
     return registry.register.apply(registry, arguments);
 }
 
-function remove() {
+export function remove() {
     return registry.remove.apply(registry, arguments);
 }
 
-function reset() {
+export function reset() {
     return registry.reset.apply(registry, arguments);
 }
-
-export {
-    get,
-    register,
-    registry,
-    remove,
-    reset
-};

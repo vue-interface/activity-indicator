@@ -12,7 +12,13 @@
 <script>
 import { registry } from './registry';
 import { ComponentRegistry } from '@vue-interface/component-registry';
-import { unit, prefix, kebabCase } from '@vue-interface/utils';
+
+function unit(value, uom = 'px') {
+    return value !== null
+        && value !== undefined
+        && value !== false
+        && isFinite(value) ? `${value}${uom}` : value;
+}
 
 export default {
 
@@ -28,16 +34,7 @@ export default {
 
         size: {
             type: String,
-            default: 'md',
-            validator(value) {
-                return [
-                    'activity-indicator-xs',
-                    'activity-indicator-sm',
-                    'activity-indicator-md',
-                    'activity-indicator-lg',
-                    'activity-indicator-xl',
-                ].indexOf(prefix(value, 'activity-indicator')) > -1;
-            }
+            default: 'md'
         },
 
         registry: {
@@ -72,7 +69,7 @@ export default {
             return {
                 'activity-indicator-center': this.center,
                 'activity-indicator-absolute': this.absolute,
-                [prefix(this.size, 'activity-indicator')]: true
+                [this.size && `activity-indicator-${this.size}`]: !!this.size
             };
         },
 
@@ -89,7 +86,7 @@ export default {
 
         component() {
             return () => {
-                const component = registry.get(kebabCase(this.type));
+                const component = registry.get(this.type);
                 
                 if(component instanceof Promise) {
                     return component;
