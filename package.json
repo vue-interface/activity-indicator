@@ -1,6 +1,6 @@
 {
   "name": "@vue-interface/activity-indicator",
-  "version": "0.10.22",
+  "version": "1.0.0",
   "description": "An Vue activity indicator component.",
   "files": [
     "dist",
