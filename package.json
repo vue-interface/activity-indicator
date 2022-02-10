@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "An Vue activity indicator component.",
   "files": [
-    "dist",
-    "tailwindcss"
+    "dist"
   ],
   "main": "./dist/activity-indicator.umd.js",
-  "module": "./dist/activity-indicator.es.js",
+  "module": "./index.js",
   "browserslist": "last 2 versions, > 0.5%, ie >= 11",
   "scripts": {
     "dev": "vite",
@@ -24,10 +23,10 @@
     "url": "git+https://github.com/vue-interface/activity-indicator.git"
   },
   "keywords": [
-    "Form",
-    "Control",
+    "Activity",
+    "Loading",
+    "Component",
     "Vue",
-    "Mixin",
     "Tailwind",
     "Bootstrap"
   ],
