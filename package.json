@@ -3,7 +3,9 @@
   "version": "1.0.1",
   "description": "An Vue activity indicator component.",
   "files": [
-    "dist"
+    "index.js",
+    "dist",
+    "src"
   ],
   "main": "./dist/activity-indicator.umd.js",
   "module": "./index.js",
