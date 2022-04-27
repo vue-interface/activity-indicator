@@ -34,7 +34,7 @@ export default defineConfig({
                 })
             ]
         },
-        watch: {
+        watch: !process.env.NODE_ENV && {
             include: [
                 './tailwindcss/**/*.js'
             ]
