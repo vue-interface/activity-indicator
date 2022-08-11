@@ -1,10 +1,10 @@
 <template>
     <div class="activity-indicator" :class="classes" :style="style">
         <div class="activity-indicator-content">
-            <component :is="component" class="mx-auto" />
+            <component :is="is()" v-if="is" class="mx-auto" />
             <div v-if="label" class="activity-indicator-label">
                 {{ label }}
-            </div>
+            </div> 
         </div>
     </div>
 </template>
@@ -63,6 +63,10 @@ export default {
 
     },
 
+    data: () => ({
+        is: null
+    }),
+
     computed: {
 
         classes() {
@@ -82,24 +86,34 @@ export default {
                 maxHeight: unit(this.maxHeight),
                 minHeight: unit(this.minHeight)
             };
-        },
-
-        component() {
-            return () => {
-                const component = registry.get(this.type);
-                
-                if(component instanceof Promise) {
-                    return component;
-                }
-
-                if(typeof component === 'function') {
-                    return component();
-                }
-            
-                return Promise.resolve(component);
-            };
         }
-    }
+
+    },
+    async mounted() {
+        const component = await this.component();
+
+        this.is = () => component;
+    },
+
+    methods: {
+        async component() {
+            let component = registry.get(this.type);
+                
+            if(component instanceof Promise) {
+                return component;
+            }
+
+            if(typeof component === 'function') {
+                component = await component();
+            }
+
+            if(component.default) {
+                return component.default;
+            }
+                
+            return component;
+        }
+    },
 
 };
 </script>

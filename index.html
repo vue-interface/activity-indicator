@@ -300,11 +300,9 @@
             </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.js"></script>
-        <script type="text/javascript" src="./dist/ActivityIndicator.umd.js"></script>
         <script type="module">
             import './index.css';
-            import Vue from 'vue/dist/vue';
+            import { createApp } from 'vue/dist/vue.esm-bundler.js';
 
             import {
                 ActivityIndicator,
@@ -325,9 +323,6 @@
                 SquareOrbit
             } from './index.js';
             
-            Vue.config.devtools = false;
-            Vue.config.productionTip = false;
-
             register({
                 Chase,
                 CircleFade,
@@ -345,12 +340,13 @@
                 SquareOrbit
             });
             
-            const vue = new Vue({
-                el: '#app',
+            const vue = createApp({
                 components: {
                     ActivityIndicator
                 }
             });
+
+            vue.mount('#app')
         </script>
     </body>
 </html>
