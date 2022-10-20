@@ -306,7 +306,7 @@
 
             import {
                 ActivityIndicator,
-                register,
+                ActivityIndicatorPlugin,
                 Chase,
                 CircleFade,
                 CircleOrbit,
@@ -323,28 +323,30 @@
                 SquareOrbit
             } from './index.js';
             
-            register({
-                Chase,
-                CircleFade,
-                CircleOrbit,
-                CircleTrail,
-                Dots,
-                DoublePulse,
-                Facebook,
-                Grid,
-                Pulse,
-                Spinner,
-                Spotify,
-                Square,
-                SquareFold,
-                SquareOrbit
-            });
-            
             const vue = createApp({
                 components: {
                     ActivityIndicator
                 }
             });
+
+            vue.use(ActivityIndicatorPlugin, {
+                indicators: {
+                    Chase,
+                    CircleFade,
+                    CircleOrbit,
+                    CircleTrail,
+                    Dots,
+                    DoublePulse,
+                    Facebook,
+                    Grid,
+                    Pulse,
+                    Spinner,
+                    Spotify,
+                    Square,
+                    SquareFold,
+                    SquareOrbit
+                }
+            })
 
             vue.mount('#app')
         </script>

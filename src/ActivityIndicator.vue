@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import { registry } from './registry';
-import { ComponentRegistry } from '@vue-interface/component-registry';
+import { inject } from 'vue';
 
 function unit(value, uom = 'px') {
     return value !== null
@@ -38,10 +37,8 @@ export default {
         },
 
         registry: {
-            type: ComponentRegistry,
-            default() {
-                return registry;
-            }
+            type: String,
+            default: 'indicators'
         },
 
         type: {
@@ -67,6 +64,12 @@ export default {
         is: null
     }),
 
+    setup(props) {
+        return {
+            registryInstance: inject(props.registry || 'indicators')
+        };
+    },
+
     computed: {
 
         classes() {
@@ -89,6 +92,7 @@ export default {
         }
 
     },
+
     async mounted() {
         const component = await this.component();
 
@@ -97,7 +101,7 @@ export default {
 
     methods: {
         async component() {
-            let component = registry.get(this.type);
+            let component = this.registryInstance.get(this.type);
                 
             if(component instanceof Promise) {
                 return component;
