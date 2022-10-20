@@ -1,15 +1,17 @@
 import { factory } from '@vue-interface/component-registry';
+import ActivityIndicator from './ActivityIndicator.vue';
 
 interface ActivityIndicatorPluginOptions {
     key?: string,
-    indicators?: {
+    indicators: {
         [key: string]: any
     }
 }
 
-export default (app, options: ActivityIndicatorPluginOptions = {}) => {
+export default (app, options: ActivityIndicatorPluginOptions) => {
     const registry = factory();
-    
+
+    app.component('ActivityIndicator', ActivityIndicator);    
     app.provide(options.key || 'indicators', registry);
 
     if(options.indicators) {
