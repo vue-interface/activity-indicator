@@ -9,10 +9,10 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { inject } from 'vue';
 
-function unit(value, uom = 'px') {
+function unit(value: any, uom = 'px'): string|undefined {
     return value !== null
         && value !== undefined
         && value !== false
@@ -20,8 +20,6 @@ function unit(value, uom = 'px') {
 }
 
 export default {
-
-    name: 'ActivityIndicator',
 
     props: {
 
@@ -64,7 +62,7 @@ export default {
         is: null
     }),
 
-    setup(props) {
+    setup(props: any) {
         return {
             registryInstance: inject(props.registry || 'indicators')
         };

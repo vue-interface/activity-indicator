@@ -1,4 +1,5 @@
 import { factory } from '@vue-interface/component-registry';
+import { App } from 'vue';
 import ActivityIndicator from './ActivityIndicator.vue';
 
 interface ActivityIndicatorPluginOptions {
@@ -8,7 +9,7 @@ interface ActivityIndicatorPluginOptions {
     }
 }
 
-export default (app, options: ActivityIndicatorPluginOptions) => {
+export default (app: App, options: ActivityIndicatorPluginOptions) => {
     const registry = factory();
 
     app.component('ActivityIndicator', ActivityIndicator);    
