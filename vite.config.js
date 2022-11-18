@@ -10,7 +10,6 @@ const fileName = name.split('/')[1];
 export default defineConfig({
     build: {
         sourcemap: true,
-        cssCodeSplit: false,
         lib: {
             entry: path.resolve(__dirname, 'index.ts'),
             name: pascalCase(fileName),
