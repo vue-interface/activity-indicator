@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { inject } from 'vue';
+import { defineComponent, inject } from 'vue';
 
 function unit(value: any, uom = 'px'): string|undefined {
     return value !== null
@@ -19,7 +19,7 @@ function unit(value: any, uom = 'px'): string|undefined {
         && isFinite(value) ? `${value}${uom}` : value;
 }
 
-export default {
+export default defineComponent({
 
     props: {
 
@@ -117,7 +117,7 @@ export default {
         }
     },
 
-};
+});
 </script>
 
 <style>
