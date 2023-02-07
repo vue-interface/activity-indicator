@@ -1,7 +1,10 @@
 declare const _sfc_main: import("vue").DefineComponent<{
     absolute: BooleanConstructor;
     center: BooleanConstructor;
-    label: StringConstructor;
+    label: {
+        type: StringConstructor;
+        default: undefined;
+    };
     size: {
         type: StringConstructor;
         default: string;
@@ -11,15 +14,33 @@ declare const _sfc_main: import("vue").DefineComponent<{
         default: string;
     };
     type: {
-        type: StringConstructor;
+        type: (StringConstructor | ObjectConstructor)[];
         required: true;
     };
-    height: (StringConstructor | NumberConstructor)[];
-    maxHeight: (StringConstructor | NumberConstructor)[];
-    minHeight: (StringConstructor | NumberConstructor)[];
-    width: (StringConstructor | NumberConstructor)[];
-    maxWidth: (StringConstructor | NumberConstructor)[];
-    minWidth: (StringConstructor | NumberConstructor)[];
+    height: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    maxHeight: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    minHeight: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    width: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    maxWidth: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    minWidth: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
 }, {
     registryInstance: unknown;
 }, {
@@ -39,11 +60,14 @@ declare const _sfc_main: import("vue").DefineComponent<{
         minHeight: string | undefined;
     };
 }, {
-    component(): Promise<any>;
+    component(): (new () => import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}>) | import("vue").DefineComponent<unknown, object, {}, import("vue").ComputedOptions, import("vue").MethodOptions, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<unknown>, {}>;
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     absolute: BooleanConstructor;
     center: BooleanConstructor;
-    label: StringConstructor;
+    label: {
+        type: StringConstructor;
+        default: undefined;
+    };
     size: {
         type: StringConstructor;
         default: string;
@@ -53,19 +77,44 @@ declare const _sfc_main: import("vue").DefineComponent<{
         default: string;
     };
     type: {
-        type: StringConstructor;
+        type: (StringConstructor | ObjectConstructor)[];
         required: true;
     };
-    height: (StringConstructor | NumberConstructor)[];
-    maxHeight: (StringConstructor | NumberConstructor)[];
-    minHeight: (StringConstructor | NumberConstructor)[];
-    width: (StringConstructor | NumberConstructor)[];
-    maxWidth: (StringConstructor | NumberConstructor)[];
-    minWidth: (StringConstructor | NumberConstructor)[];
+    height: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    maxHeight: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    minHeight: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    width: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    maxWidth: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
+    minWidth: {
+        type: (StringConstructor | NumberConstructor)[];
+        default: undefined;
+    };
 }>>, {
     absolute: boolean;
     center: boolean;
+    label: string;
     size: string;
     registry: string;
+    height: string | number;
+    maxHeight: string | number;
+    minHeight: string | number;
+    width: string | number;
+    maxWidth: string | number;
+    minWidth: string | number;
 }>;
 export default _sfc_main;

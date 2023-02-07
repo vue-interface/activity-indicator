@@ -1,8 +1,15 @@
 <template>
-    <div class="activity-indicator" :class="classes" :style="style">
+    <div
+        class="activity-indicator"
+        :class="classes"
+        :style="style">
         <div class="activity-indicator-content">
-            <component :is="is()" v-if="is" class="mx-auto" />
-            <div v-if="label" class="activity-indicator-label">
+            <component
+                :is="component()"
+                class="mx-auto" />
+            <div
+                v-if="label"
+                class="activity-indicator-label">
                 {{ label }}
             </div> 
         </div>
@@ -10,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue';
+import { defineAsyncComponent, defineComponent, inject, toRaw } from 'vue';
 
 function unit(value: any, uom = 'px'): string|undefined {
     return value !== null
@@ -27,7 +34,10 @@ export default defineComponent({
 
         center: Boolean,
 
-        label: String,
+        label: {
+            type: String,
+            default: undefined
+        },
 
         size: {
             type: String,
@@ -40,33 +50,50 @@ export default defineComponent({
         },
 
         type: {
-            type: String,
+            type: [Object, String],
             required: true
         },
 
-        height: [String, Number],
+        height: {
+            type: [String, Number],
+            default: undefined
+        },
 
-        maxHeight: [String, Number],
+        maxHeight: {
+            type: [String, Number],
+            default: undefined
+        },
 
-        minHeight: [String, Number],
+        minHeight: {
+            type: [String, Number],
+            default: undefined
+        },
 
-        width: [String, Number],
+        width: {
+            type: [String, Number],
+            default: undefined
+        },
 
-        maxWidth: [String, Number],
+        maxWidth: {
+            type: [String, Number],
+            default: undefined
+        },
 
-        minWidth: [String, Number]
-
+        minWidth: {
+            type: [String, Number],
+            default: undefined
+        }
     },
-
-    data: () => ({
-        is: null
-    }),
 
     setup(props: any) {
         return {
             registryInstance: inject(props.registry || 'indicators')
         };
     },
+
+    data: () => ({
+        is: null
+    }),
 
     computed: {
 
@@ -91,29 +118,41 @@ export default defineComponent({
 
     },
 
-    async mounted() {
-        const component = await this.component();
+    // async mounted() {
+    //     const component = await this.component();
 
-        this.is = () => component;
-    },
+    //     this.is = () => component;
+    // },
 
     methods: {
-        async component() {
-            let component = this.registryInstance.get(this.type);
-                
-            if(component instanceof Promise) {
-                return component;
+        component() {
+            let component = toRaw(this.type);
+
+            try {
+                component = this.registryInstance.get(String(this.type));
+            }
+            catch (e) {
+                // Ignore the error
             }
 
             if(typeof component === 'function') {
-                component = await component();
+                component = component();
             }
 
-            if(component.default) {
-                return component.default;
+            if(component instanceof Promise) {
+                return defineAsyncComponent(() => component);
             }
+
+            return defineComponent(component);
+
+            // return this.type;
+
+
+            // if(component.default) {
+            //     return component.default;
+            // }
                 
-            return component;
+            // return component;
         }
     },
 

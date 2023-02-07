@@ -1,12 +1,15 @@
-import { defineComponent as k, inject as w, openBlock as n, createElementBlock as e, normalizeClass as C, normalizeStyle as O, createElementVNode as d, createBlock as A, resolveDynamicComponent as j, createCommentVNode as $, toDisplayString as N, createStaticVNode as v } from "vue";
+import { defineComponent as $, inject as k, toRaw as C, defineAsyncComponent as w, openBlock as e, createElementBlock as n, normalizeClass as O, normalizeStyle as A, createElementVNode as d, createBlock as j, resolveDynamicComponent as N, toDisplayString as z, createCommentVNode as P, createStaticVNode as v } from "vue";
 function o(i, t = "px") {
   return i != null && i !== !1 && isFinite(i) ? `${i}${t}` : i;
 }
-const z = k({
+const E = $({
   props: {
     absolute: Boolean,
     center: Boolean,
-    label: String,
+    label: {
+      type: String,
+      default: void 0
+    },
     size: {
       type: String,
       default: "md"
@@ -16,24 +19,42 @@ const z = k({
       default: "indicators"
     },
     type: {
-      type: String,
+      type: [Object, String],
       required: !0
     },
-    height: [String, Number],
-    maxHeight: [String, Number],
-    minHeight: [String, Number],
-    width: [String, Number],
-    maxWidth: [String, Number],
-    minWidth: [String, Number]
+    height: {
+      type: [String, Number],
+      default: void 0
+    },
+    maxHeight: {
+      type: [String, Number],
+      default: void 0
+    },
+    minHeight: {
+      type: [String, Number],
+      default: void 0
+    },
+    width: {
+      type: [String, Number],
+      default: void 0
+    },
+    maxWidth: {
+      type: [String, Number],
+      default: void 0
+    },
+    minWidth: {
+      type: [String, Number],
+      default: void 0
+    }
+  },
+  setup(i) {
+    return {
+      registryInstance: k(i.registry || "indicators")
+    };
   },
   data: () => ({
     is: null
   }),
-  setup(i) {
-    return {
-      registryInstance: w(i.registry || "indicators")
-    };
-  },
   computed: {
     classes() {
       return {
@@ -53,14 +74,14 @@ const z = k({
       };
     }
   },
-  async mounted() {
-    const i = await this.component();
-    this.is = () => i;
-  },
   methods: {
-    async component() {
-      let i = this.registryInstance.get(this.type);
-      return i instanceof Promise ? i : (typeof i == "function" && (i = await i()), i.default ? i.default : i);
+    component() {
+      let i = C(this.type);
+      try {
+        i = this.registryInstance.get(String(this.type));
+      } catch {
+      }
+      return typeof i == "function" && (i = i()), i instanceof Promise ? w(() => i) : $(i);
     }
   }
 });
@@ -69,26 +90,23 @@ const r = (i, t) => {
   for (const [s, a] of t)
     c[s] = a;
   return c;
-}, P = { class: "activity-indicator-content" }, E = {
-  key: 1,
+}, F = { class: "activity-indicator-content" }, D = {
+  key: 0,
   class: "activity-indicator-label"
 };
-function F(i, t, c, s, a, p) {
-  return n(), e("div", {
-    class: C(["activity-indicator", i.classes]),
-    style: O(i.style)
+function H(i, t, c, s, a, p) {
+  return e(), n("div", {
+    class: O(["activity-indicator", i.classes]),
+    style: A(i.style)
   }, [
-    d("div", P, [
-      i.is ? (n(), A(j(i.is()), {
-        key: 0,
-        class: "mx-auto"
-      })) : $("", !0),
-      i.label ? (n(), e("div", E, N(i.label), 1)) : $("", !0)
+    d("div", F, [
+      (e(), j(N(i.component()), { class: "mx-auto" })),
+      i.label ? (e(), n("div", D, z(i.label), 1)) : P("", !0)
     ])
   ], 6);
 }
-const D = /* @__PURE__ */ r(z, [["render", F]]);
-var H = Object.defineProperty, I = (i, t, c) => t in i ? H(i, t, { enumerable: !0, configurable: !0, writable: !0, value: c }) : i[t] = c, W = (i, t, c) => (I(i, typeof t != "symbol" ? t + "" : t, c), c), y = function() {
+const I = /* @__PURE__ */ r(E, [["render", H]]);
+var W = Object.defineProperty, B = (i, t, c) => t in i ? W(i, t, { enumerable: !0, configurable: !0, writable: !0, value: c }) : i[t] = c, R = (i, t, c) => (B(i, typeof t != "symbol" ? t + "" : t, c), c), y = function() {
   return y = Object.assign || function(i) {
     for (var t, c = 1, s = arguments.length; c < s; c++) {
       t = arguments[c];
@@ -98,13 +116,13 @@ var H = Object.defineProperty, I = (i, t, c) => t in i ? H(i, t, { enumerable: !
     return i;
   }, y.apply(this, arguments);
 };
-function B(i) {
+function Z(i) {
   return i.toLowerCase();
 }
-var R = [/([a-z0-9])([A-Z])/g, /([A-Z])([A-Z][a-z])/g], Z = /[^A-Z0-9]+/gi;
-function V(i, t) {
+var V = [/([a-z0-9])([A-Z])/g, /([A-Z])([A-Z][a-z])/g], G = /[^A-Z0-9]+/gi;
+function M(i, t) {
   t === void 0 && (t = {});
-  for (var c = t.splitRegexp, s = c === void 0 ? R : c, a = t.stripRegexp, p = a === void 0 ? Z : a, g = t.transform, q = g === void 0 ? B : g, m = t.delimiter, S = m === void 0 ? " " : m, l = b(b(i, s, "$1\0$2"), p, "\0"), h = 0, f = l.length; l.charAt(h) === "\0"; )
+  for (var c = t.splitRegexp, s = c === void 0 ? V : c, a = t.stripRegexp, p = a === void 0 ? G : a, g = t.transform, q = g === void 0 ? Z : g, m = t.delimiter, S = m === void 0 ? " " : m, l = b(b(i, s, "$1\0$2"), p, "\0"), h = 0, f = l.length; l.charAt(h) === "\0"; )
     h++;
   for (; l.charAt(f - 1) === "\0"; )
     f--;
@@ -115,15 +133,15 @@ function b(i, t, c) {
     return s.replace(a, c);
   }, i);
 }
-function G(i, t) {
-  return t === void 0 && (t = {}), V(i, y({ delimiter: "." }, t));
+function T(i, t) {
+  return t === void 0 && (t = {}), M(i, y({ delimiter: "." }, t));
 }
 function _(i, t) {
-  return t === void 0 && (t = {}), G(i, y({ delimiter: "-" }, t));
+  return t === void 0 && (t = {}), T(i, y({ delimiter: "-" }, t));
 }
-class M {
+class L {
   constructor(t = {}) {
-    W(this, "components"), this.components = /* @__PURE__ */ new Map(), Object.entries(t).forEach(([c, s]) => {
+    R(this, "components"), this.components = /* @__PURE__ */ new Map(), Object.entries(t).forEach(([c, s]) => {
       this.register(c, s);
     });
   }
@@ -148,147 +166,147 @@ class M {
   }
 }
 function x(i = {}) {
-  return new M(i);
+  return new L(i);
 }
-const lt = (i, t) => {
+const yt = (i, t) => {
   const c = x();
-  if (i.component("ActivityIndicator", D), i.provide(t.key || "indicators", c), t.indicators)
+  if (i.component("ActivityIndicator", I), i.provide(t.key || "indicators", c), t.indicators)
     for (const [s, a] of Object.entries(t.indicators))
       c.register(s, a);
 }, u = x();
-function _t(i) {
+function ut(i) {
   return u.get(i);
 }
-function yt(i, t) {
+function ht(i, t) {
   return u.register(i, t);
 }
-function ut(i) {
+function ft(i) {
   return u.remove(i);
 }
-function ht() {
+function pt() {
   return u.reset();
 }
-const T = {}, L = { class: "activity-indicator-chase" }, J = /* @__PURE__ */ v('<div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div>', 6), K = [
-  J
+const J = {}, K = { class: "activity-indicator-chase" }, Q = /* @__PURE__ */ v('<div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div><div class="activity-indicator-chase-dot"></div>', 6), U = [
+  Q
 ];
-function Q(i, t) {
-  return n(), e("div", L, K);
+function X(i, t) {
+  return e(), n("div", K, U);
 }
-const ft = /* @__PURE__ */ r(T, [["render", Q]]);
-const U = {}, X = { class: "activity-indicator-circle-fade" }, Y = /* @__PURE__ */ v('<div class="activity-indicator-circle1 activity-indicator-circle"></div><div class="activity-indicator-circle2 activity-indicator-circle"></div><div class="activity-indicator-circle3 activity-indicator-circle"></div><div class="activity-indicator-circle4 activity-indicator-circle"></div><div class="activity-indicator-circle5 activity-indicator-circle"></div><div class="activity-indicator-circle6 activity-indicator-circle"></div><div class="activity-indicator-circle7 activity-indicator-circle"></div><div class="activity-indicator-circle8 activity-indicator-circle"></div><div class="activity-indicator-circle9 activity-indicator-circle"></div><div class="activity-indicator-circle10 activity-indicator-circle"></div><div class="activity-indicator-circle11 activity-indicator-circle"></div><div class="activity-indicator-circle12 activity-indicator-circle"></div>', 12), ii = [
-  Y
+const gt = /* @__PURE__ */ r(J, [["render", X]]);
+const Y = {}, ii = { class: "activity-indicator-circle-fade" }, ti = /* @__PURE__ */ v('<div class="activity-indicator-circle1 activity-indicator-circle"></div><div class="activity-indicator-circle2 activity-indicator-circle"></div><div class="activity-indicator-circle3 activity-indicator-circle"></div><div class="activity-indicator-circle4 activity-indicator-circle"></div><div class="activity-indicator-circle5 activity-indicator-circle"></div><div class="activity-indicator-circle6 activity-indicator-circle"></div><div class="activity-indicator-circle7 activity-indicator-circle"></div><div class="activity-indicator-circle8 activity-indicator-circle"></div><div class="activity-indicator-circle9 activity-indicator-circle"></div><div class="activity-indicator-circle10 activity-indicator-circle"></div><div class="activity-indicator-circle11 activity-indicator-circle"></div><div class="activity-indicator-circle12 activity-indicator-circle"></div>', 12), ci = [
+  ti
 ];
-function ti(i, t) {
-  return n(), e("div", X, ii);
+function ei(i, t) {
+  return e(), n("div", ii, ci);
 }
-const pt = /* @__PURE__ */ r(U, [["render", ti]]);
-const ci = {}, ni = { class: "activity-indicator-circle-orbit" }, ei = /* @__PURE__ */ d("div", { class: "activity-indicator-circle-orbit-dot1" }, null, -1), ai = /* @__PURE__ */ d("div", { class: "activity-indicator-circle-orbit-dot2" }, null, -1), ri = [
-  ei,
-  ai
+const mt = /* @__PURE__ */ r(Y, [["render", ei]]);
+const ni = {}, ai = { class: "activity-indicator-circle-orbit" }, ri = /* @__PURE__ */ d("div", { class: "activity-indicator-circle-orbit-dot1" }, null, -1), si = /* @__PURE__ */ d("div", { class: "activity-indicator-circle-orbit-dot2" }, null, -1), di = [
+  ri,
+  si
 ];
-function si(i, t) {
-  return n(), e("div", ni, ri);
+function oi(i, t) {
+  return e(), n("div", ai, di);
 }
-const gt = /* @__PURE__ */ r(ci, [["render", si]]);
-const di = {}, oi = { class: "activity-indicator-circle-trail" }, vi = /* @__PURE__ */ v('<div class="activity-indicator-circle-trail1 activity-indicator-child"></div><div class="activity-indicator-circle-trail2 activity-indicator-child"></div><div class="activity-indicator-circle-trail3 activity-indicator-child"></div><div class="activity-indicator-circle-trail4 activity-indicator-child"></div><div class="activity-indicator-circle-trail5 activity-indicator-child"></div><div class="activity-indicator-circle-trail6 activity-indicator-child"></div><div class="activity-indicator-circle-trail7 activity-indicator-child"></div><div class="activity-indicator-circle-trail8 activity-indicator-child"></div><div class="activity-indicator-circle-trail9 activity-indicator-child"></div><div class="activity-indicator-circle-trail10 activity-indicator-child"></div><div class="activity-indicator-circle-trail11 activity-indicator-child"></div><div class="activity-indicator-circle-trail12 activity-indicator-child"></div>', 12), li = [
-  vi
+const $t = /* @__PURE__ */ r(ni, [["render", oi]]);
+const vi = {}, li = { class: "activity-indicator-circle-trail" }, _i = /* @__PURE__ */ v('<div class="activity-indicator-circle-trail1 activity-indicator-child"></div><div class="activity-indicator-circle-trail2 activity-indicator-child"></div><div class="activity-indicator-circle-trail3 activity-indicator-child"></div><div class="activity-indicator-circle-trail4 activity-indicator-child"></div><div class="activity-indicator-circle-trail5 activity-indicator-child"></div><div class="activity-indicator-circle-trail6 activity-indicator-child"></div><div class="activity-indicator-circle-trail7 activity-indicator-child"></div><div class="activity-indicator-circle-trail8 activity-indicator-child"></div><div class="activity-indicator-circle-trail9 activity-indicator-child"></div><div class="activity-indicator-circle-trail10 activity-indicator-child"></div><div class="activity-indicator-circle-trail11 activity-indicator-child"></div><div class="activity-indicator-circle-trail12 activity-indicator-child"></div>', 12), yi = [
+  _i
 ];
-function _i(i, t) {
-  return n(), e("div", oi, li);
+function ui(i, t) {
+  return e(), n("div", li, yi);
 }
-const mt = /* @__PURE__ */ r(di, [["render", _i]]);
-const yi = {}, ui = { class: "activity-indicator-dots" }, hi = /* @__PURE__ */ d("div", { class: "activity-indicator-dots-bounce1" }, null, -1), fi = /* @__PURE__ */ d("div", { class: "activity-indicator-dots-bounce2" }, null, -1), pi = /* @__PURE__ */ d("div", { class: "activity-indicator-dots-bounce3" }, null, -1), gi = [
-  hi,
-  fi,
-  pi
+const bt = /* @__PURE__ */ r(vi, [["render", ui]]);
+const hi = {}, fi = { class: "activity-indicator-dots" }, pi = /* @__PURE__ */ d("div", { class: "activity-indicator-dots-bounce1" }, null, -1), gi = /* @__PURE__ */ d("div", { class: "activity-indicator-dots-bounce2" }, null, -1), mi = /* @__PURE__ */ d("div", { class: "activity-indicator-dots-bounce3" }, null, -1), $i = [
+  pi,
+  gi,
+  mi
 ];
-function mi(i, t) {
-  return n(), e("div", ui, gi);
+function bi(i, t) {
+  return e(), n("div", fi, $i);
 }
-const $t = /* @__PURE__ */ r(yi, [["render", mi]]);
-const $i = {}, bi = { class: "activity-indicator-double-pulse" }, xi = /* @__PURE__ */ d("div", { class: "activity-indicator-double-pulse-bounce1" }, null, -1), qi = /* @__PURE__ */ d("div", { class: "activity-indicator-double-pulse-bounce2" }, null, -1), Si = [
-  xi,
-  qi
+const xt = /* @__PURE__ */ r(hi, [["render", bi]]);
+const xi = {}, qi = { class: "activity-indicator-double-pulse" }, Si = /* @__PURE__ */ d("div", { class: "activity-indicator-double-pulse-bounce1" }, null, -1), ki = /* @__PURE__ */ d("div", { class: "activity-indicator-double-pulse-bounce2" }, null, -1), Ci = [
+  Si,
+  ki
 ];
-function ki(i, t) {
-  return n(), e("div", bi, Si);
+function wi(i, t) {
+  return e(), n("div", qi, Ci);
 }
-const bt = /* @__PURE__ */ r($i, [["render", ki]]);
-const wi = {}, Ci = { class: "activity-indicator-facebook" }, Oi = /* @__PURE__ */ v('<div class="activity-indicator-facebook-rect1"></div><div class="activity-indicator-facebook-rect2"></div><div class="activity-indicator-facebook-rect3"></div><div class="activity-indicator-facebook-rect4"></div><div class="activity-indicator-facebook-rect5"></div>', 5), Ai = [
-  Oi
+const qt = /* @__PURE__ */ r(xi, [["render", wi]]);
+const Oi = {}, Ai = { class: "activity-indicator-facebook" }, ji = /* @__PURE__ */ v('<div class="activity-indicator-facebook-rect1"></div><div class="activity-indicator-facebook-rect2"></div><div class="activity-indicator-facebook-rect3"></div><div class="activity-indicator-facebook-rect4"></div><div class="activity-indicator-facebook-rect5"></div>', 5), Ni = [
+  ji
 ];
-function ji(i, t) {
-  return n(), e("div", Ci, Ai);
+function zi(i, t) {
+  return e(), n("div", Ai, Ni);
 }
-const xt = /* @__PURE__ */ r(wi, [["render", ji]]);
-const Ni = {}, zi = { class: "activity-indicator-grid" }, Pi = /* @__PURE__ */ v('<div class="activity-indicator-grid activity-indicator-grid1"></div><div class="activity-indicator-grid activity-indicator-grid2"></div><div class="activity-indicator-grid activity-indicator-grid3"></div><div class="activity-indicator-grid activity-indicator-grid4"></div><div class="activity-indicator-grid activity-indicator-grid5"></div><div class="activity-indicator-grid activity-indicator-grid6"></div><div class="activity-indicator-grid activity-indicator-grid7"></div><div class="activity-indicator-grid activity-indicator-grid8"></div><div class="activity-indicator-grid activity-indicator-grid9"></div>', 9), Ei = [
-  Pi
+const St = /* @__PURE__ */ r(Oi, [["render", zi]]);
+const Pi = {}, Ei = { class: "activity-indicator-grid" }, Fi = /* @__PURE__ */ v('<div class="activity-indicator-grid activity-indicator-grid1"></div><div class="activity-indicator-grid activity-indicator-grid2"></div><div class="activity-indicator-grid activity-indicator-grid3"></div><div class="activity-indicator-grid activity-indicator-grid4"></div><div class="activity-indicator-grid activity-indicator-grid5"></div><div class="activity-indicator-grid activity-indicator-grid6"></div><div class="activity-indicator-grid activity-indicator-grid7"></div><div class="activity-indicator-grid activity-indicator-grid8"></div><div class="activity-indicator-grid activity-indicator-grid9"></div>', 9), Di = [
+  Fi
 ];
-function Fi(i, t) {
-  return n(), e("div", zi, Ei);
+function Hi(i, t) {
+  return e(), n("div", Ei, Di);
 }
-const qt = /* @__PURE__ */ r(Ni, [["render", Fi]]);
-const Di = {}, Hi = { class: "activity-indicator-pulse" };
-function Ii(i, t) {
-  return n(), e("div", Hi);
+const kt = /* @__PURE__ */ r(Pi, [["render", Hi]]);
+const Ii = {}, Wi = { class: "activity-indicator-pulse" };
+function Bi(i, t) {
+  return e(), n("div", Wi);
 }
-const St = /* @__PURE__ */ r(Di, [["render", Ii]]);
-const Wi = {}, Bi = { class: "activity-indicator-spinner" }, Ri = /* @__PURE__ */ v('<div class="activity-indicator-spinner1 activity-indicator-spinner"></div><div class="activity-indicator-spinner2 activity-indicator-spinner"></div><div class="activity-indicator-spinner3 activity-indicator-spinner"></div><div class="activity-indicator-spinner4 activity-indicator-spinner"></div><div class="activity-indicator-spinner5 activity-indicator-spinner"></div><div class="activity-indicator-spinner6 activity-indicator-spinner"></div><div class="activity-indicator-spinner7 activity-indicator-spinner"></div><div class="activity-indicator-spinner8 activity-indicator-spinner"></div><div class="activity-indicator-spinner9 activity-indicator-spinner"></div><div class="activity-indicator-spinner10 activity-indicator-spinner"></div><div class="activity-indicator-spinner11 activity-indicator-spinner"></div><div class="activity-indicator-spinner12 activity-indicator-spinner"></div>', 12), Zi = [
-  Ri
+const Ct = /* @__PURE__ */ r(Ii, [["render", Bi]]);
+const Ri = {}, Zi = { class: "activity-indicator-spinner" }, Vi = /* @__PURE__ */ v('<div class="activity-indicator-spinner1 activity-indicator-spinner"></div><div class="activity-indicator-spinner2 activity-indicator-spinner"></div><div class="activity-indicator-spinner3 activity-indicator-spinner"></div><div class="activity-indicator-spinner4 activity-indicator-spinner"></div><div class="activity-indicator-spinner5 activity-indicator-spinner"></div><div class="activity-indicator-spinner6 activity-indicator-spinner"></div><div class="activity-indicator-spinner7 activity-indicator-spinner"></div><div class="activity-indicator-spinner8 activity-indicator-spinner"></div><div class="activity-indicator-spinner9 activity-indicator-spinner"></div><div class="activity-indicator-spinner10 activity-indicator-spinner"></div><div class="activity-indicator-spinner11 activity-indicator-spinner"></div><div class="activity-indicator-spinner12 activity-indicator-spinner"></div>', 12), Gi = [
+  Vi
 ];
-function Vi(i, t) {
-  return n(), e("div", Bi, Zi);
+function Mi(i, t) {
+  return e(), n("div", Zi, Gi);
 }
-const kt = /* @__PURE__ */ r(Wi, [["render", Vi]]);
-const Gi = {}, Mi = { class: "activity-indicator-spotify" };
-function Ti(i, t) {
-  return n(), e("div", Mi);
+const wt = /* @__PURE__ */ r(Ri, [["render", Mi]]);
+const Ti = {}, Li = { class: "activity-indicator-spotify" };
+function Ji(i, t) {
+  return e(), n("div", Li);
 }
-const wt = /* @__PURE__ */ r(Gi, [["render", Ti]]);
-const Li = {}, Ji = { class: "activity-indicator-square" };
-function Ki(i, t) {
-  return n(), e("div", Ji);
+const Ot = /* @__PURE__ */ r(Ti, [["render", Ji]]);
+const Ki = {}, Qi = { class: "activity-indicator-square" };
+function Ui(i, t) {
+  return e(), n("div", Qi);
 }
-const Ct = /* @__PURE__ */ r(Li, [["render", Ki]]);
-const Qi = {}, Ui = { class: "activity-indicator-square-fold" }, Xi = /* @__PURE__ */ d("div", { class: "activity-indicator-square-fold-square1 activity-indicator-square-fold-square" }, null, -1), Yi = /* @__PURE__ */ d("div", { class: "activity-indicator-square-fold-square2 activity-indicator-square-fold-square" }, null, -1), it = /* @__PURE__ */ d("div", { class: "activity-indicator-square-fold-square4 activity-indicator-square-fold-square" }, null, -1), tt = /* @__PURE__ */ d("div", { class: "activity-indicator-square-fold-square3 activity-indicator-square-fold-square" }, null, -1), ct = [
-  Xi,
-  Yi,
+const At = /* @__PURE__ */ r(Ki, [["render", Ui]]);
+const Xi = {}, Yi = { class: "activity-indicator-square-fold" }, it = /* @__PURE__ */ d("div", { class: "activity-indicator-square-fold-square1 activity-indicator-square-fold-square" }, null, -1), tt = /* @__PURE__ */ d("div", { class: "activity-indicator-square-fold-square2 activity-indicator-square-fold-square" }, null, -1), ct = /* @__PURE__ */ d("div", { class: "activity-indicator-square-fold-square4 activity-indicator-square-fold-square" }, null, -1), et = /* @__PURE__ */ d("div", { class: "activity-indicator-square-fold-square3 activity-indicator-square-fold-square" }, null, -1), nt = [
   it,
-  tt
+  tt,
+  ct,
+  et
 ];
-function nt(i, t) {
-  return n(), e("div", Ui, ct);
+function at(i, t) {
+  return e(), n("div", Yi, nt);
 }
-const Ot = /* @__PURE__ */ r(Qi, [["render", nt]]);
-const et = {}, at = { class: "activity-indicator-square-orbit" }, rt = /* @__PURE__ */ d("div", { class: "activity-indicator-square-orbit-cube1" }, null, -1), st = /* @__PURE__ */ d("div", { class: "activity-indicator-square-orbit-cube2" }, null, -1), dt = [
-  rt,
-  st
+const jt = /* @__PURE__ */ r(Xi, [["render", at]]);
+const rt = {}, st = { class: "activity-indicator-square-orbit" }, dt = /* @__PURE__ */ d("div", { class: "activity-indicator-square-orbit-cube1" }, null, -1), ot = /* @__PURE__ */ d("div", { class: "activity-indicator-square-orbit-cube2" }, null, -1), vt = [
+  dt,
+  ot
 ];
-function ot(i, t) {
-  return n(), e("div", at, dt);
+function lt(i, t) {
+  return e(), n("div", st, vt);
 }
-const At = /* @__PURE__ */ r(et, [["render", ot]]);
+const Nt = /* @__PURE__ */ r(rt, [["render", lt]]);
 export {
-  D as ActivityIndicator,
-  lt as ActivityIndicatorPlugin,
-  ft as Chase,
-  pt as CircleFade,
-  gt as CircleOrbit,
-  mt as CircleTrail,
-  $t as Dots,
-  bt as DoublePulse,
-  xt as Facebook,
-  qt as Grid,
-  St as Pulse,
-  kt as Spinner,
-  wt as Spotify,
-  Ct as Square,
-  Ot as SquareFold,
-  At as SquareOrbit,
-  _t as get,
-  yt as register,
+  I as ActivityIndicator,
+  yt as ActivityIndicatorPlugin,
+  gt as Chase,
+  mt as CircleFade,
+  $t as CircleOrbit,
+  bt as CircleTrail,
+  xt as Dots,
+  qt as DoublePulse,
+  St as Facebook,
+  kt as Grid,
+  Ct as Pulse,
+  wt as Spinner,
+  Ot as Spotify,
+  At as Square,
+  jt as SquareFold,
+  Nt as SquareOrbit,
+  ut as get,
+  ht as register,
   u as registry,
-  ut as remove,
-  ht as reset
+  ft as remove,
+  pt as reset
 };
 //# sourceMappingURL=activity-indicator.js.map

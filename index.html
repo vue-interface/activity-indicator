@@ -58,7 +58,7 @@
                 <div class="mr-3">
                     <activity-indicator type="spinner" size="sm"></activity-indicator>
                 </div>
-                <div class="mr-3">
+                <div class="mr-3">`
                     <activity-indicator type="spinner" size="md"></activity-indicator>
                 </div>
                 <div class="mr-3">
@@ -93,19 +93,19 @@
 
             <div class="flex py-5">
                 <div class="mr-3">
-                    <activity-indicator type="square-orbit" size="xs"></activity-indicator>
+                    <activity-indicator :type="SquareOrbit" size="xs"></activity-indicator>
                 </div>
                 <div class="mr-3">
-                    <activity-indicator type="square-orbit" size="sm"></activity-indicator>
+                    <activity-indicator :type="SquareOrbit" size="sm"></activity-indicator>
                 </div>
                 <div class="mr-3">
-                    <activity-indicator type="square-orbit" size="md"></activity-indicator>
+                    <activity-indicator :type="SquareOrbit" size="md"></activity-indicator>
                 </div>
                 <div class="mr-3">
-                    <activity-indicator type="square-orbit" size="lg"></activity-indicator>
+                    <activity-indicator :type="SquareOrbit" size="lg"></activity-indicator>
                 </div>
                 <div class="mr-3">
-                    <activity-indicator type="square-orbit" size="xl"></activity-indicator>
+                    <activity-indicator :type="SquareOrbit" size="xl"></activity-indicator>
                 </div>
             </div>
 
@@ -326,7 +326,10 @@
             const vue = createApp({
                 components: {
                     ActivityIndicator
-                }
+                },
+                data: () => ({
+                    SquareOrbit
+                })
             });
 
             vue.use(ActivityIndicatorPlugin, {
@@ -343,8 +346,7 @@
                     Spinner,
                     Spotify,
                     Square,
-                    SquareFold,
-                    SquareOrbit
+                    SquareFold
                 }
             })
 

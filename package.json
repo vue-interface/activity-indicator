@@ -53,14 +53,11 @@
     "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-babel": "^6.0.0",
     "@vitejs/plugin-vue": "^3.0.1",
     "@vue/compiler-sfc": "^3.2.45",
+    "@vue/eslint-config-typescript": "^11.0.2",
     "autoprefixer": "^10.4.2",
-    "babel-eslint": "^10.1.0",
-    "babel-preset-vue": "^2.0.2",
     "change-case": "^4.1.2",
-    "consola": "^2.15.3",
     "eslint": "^8.27.0",
     "eslint-plugin-vue": "^9.7.0",
     "pascalcase": "^2.0.0",
