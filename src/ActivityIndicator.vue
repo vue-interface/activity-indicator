@@ -17,7 +17,9 @@
 </template>
 
 <script lang="ts">
-import { defineAsyncComponent, defineComponent, inject, toRaw } from 'vue';
+import { ComponentRegistry } from '@vue-interface/component-registry';
+import { defineComponent, inject, toRaw } from 'vue';
+import { registry } from './registry';
 
 function unit(value: any, uom = 'px'): string|undefined {
     return value !== null
@@ -85,12 +87,6 @@ export default defineComponent({
         }
     },
 
-    setup(props: any) {
-        return {
-            registryInstance: inject(props.registry || 'indicators')
-        };
-    },
-
     data: () => ({
         is: null
     }),
@@ -125,34 +121,20 @@ export default defineComponent({
     // },
 
     methods: {
-        component() {
-            let component = toRaw(this.type);
-
+        componentFromRegistry(key: string) {
             try {
-                component = this.registryInstance.get(String(this.type));
+                return inject<ComponentRegistry>(this.registry || 'indicators', registry)?.get(key);
             }
             catch (e) {
                 // Ignore the error
             }
-
-            if(typeof component === 'function') {
-                component = component();
+        },
+        component() {
+            if(typeof this.type === 'string') {
+                return this.componentFromRegistry(this.type);
             }
 
-            if(component instanceof Promise) {
-                return defineAsyncComponent(() => component);
-            }
-
-            return defineComponent(component);
-
-            // return this.type;
-
-
-            // if(component.default) {
-            //     return component.default;
-            // }
-                
-            // return component;
+            return toRaw(this.type);
         }
     },
 

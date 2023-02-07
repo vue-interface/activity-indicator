@@ -41,9 +41,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: (StringConstructor | NumberConstructor)[];
         default: undefined;
     };
-}, {
-    registryInstance: unknown;
-}, {
+}, unknown, {
     is: null;
 }, {
     classes(): {
@@ -60,7 +58,8 @@ declare const _sfc_main: import("vue").DefineComponent<{
         minHeight: string | undefined;
     };
 }, {
-    component(): (new () => import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}>) | import("vue").DefineComponent<unknown, object, {}, import("vue").ComputedOptions, import("vue").MethodOptions, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<unknown>, {}>;
+    componentFromRegistry(key: string): any;
+    component(): any;
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     absolute: BooleanConstructor;
     center: BooleanConstructor;
