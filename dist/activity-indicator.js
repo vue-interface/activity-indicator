@@ -144,6 +144,10 @@ const Z = S({
       };
     }
   },
+  // async mounted() {
+  //     const component = await this.component();
+  //     this.is = () => component;
+  // },
   methods: {
     componentFromRegistry(t) {
       var i;
