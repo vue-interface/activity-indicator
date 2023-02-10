@@ -19,7 +19,7 @@
   },
   "browserslist": "last 2 versions, > 0.5%, ie >= 11",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite build --watch",
     "build": "vite build",
     "preview": "vite preview",
     "pre-release": "npm run build; git add . -A; git commit -m 'pre-release commit'",

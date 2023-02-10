@@ -310,4 +310,3 @@ export {
   ut as remove,
   ht as reset
 };
-//# sourceMappingURL=activity-indicator.js.map
