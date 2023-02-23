@@ -15,10 +15,11 @@ export default defineConfig({
             fileName,
         },
         rollupOptions: {
-            external: ['vue'],
+            external: ['@vue-interface/component-registry', 'vue'],
             output: {
                 globals: {
-                    vue: 'Vue'
+                    '@vue-interface/component-registry': 'ComponentRegistry',
+                    'vue': 'Vue'
                 },
             }
         },
