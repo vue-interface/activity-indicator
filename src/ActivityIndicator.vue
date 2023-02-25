@@ -1,21 +1,3 @@
-<template>
-    <div
-        class="activity-indicator"
-        :class="classes"
-        :style="style">
-        <div class="activity-indicator-content">
-            <component
-                :is="component()"
-                class="mx-auto" />
-            <div
-                v-if="label"
-                class="activity-indicator-label">
-                {{ label }}
-            </div> 
-        </div>
-    </div>
-</template>
-
 <script lang="ts">
 import { ComponentRegistry } from '@vue-interface/component-registry';
 import { defineComponent, inject, toRaw } from 'vue';
@@ -114,12 +96,6 @@ export default defineComponent({
 
     },
 
-    // async mounted() {
-    //     const component = await this.component();
-
-    //     this.is = () => component;
-    // },
-
     methods: {
         componentFromRegistry(key: string) {
             try {
@@ -140,6 +116,24 @@ export default defineComponent({
 
 });
 </script>
+
+<template>
+    <div
+        class="activity-indicator"
+        :class="classes"
+        :style="style">
+        <div class="activity-indicator-content">
+            <component
+                :is="component()"
+                class="mx-auto" />
+            <div
+                v-if="label"
+                class="activity-indicator-label">
+                {{ label }}
+            </div> 
+        </div>
+    </div>
+</template>
 
 <style>
 .activity-indicator-label {
