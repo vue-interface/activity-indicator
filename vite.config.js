@@ -3,40 +3,37 @@ import { pascalCase } from 'change-case';
 import path from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import pkg from './package.json';
+import { name } from './package.json';
 
-const fileName = pkg.name.split('/')[1];
+const fileName = name.split('/')[1];
 
-const external = [
-    ...(pkg.dependencies ? Object.keys(pkg.dependencies) : []),
-    ...(pkg.peerDependencies ? Object.keys(pkg.peerDependencies) : [])
-];
-
-export default defineConfig({
-    build: {
-        lib: {
-            entry: path.resolve(__dirname, 'index.ts'),
-            name: pascalCase(fileName),
-            fileName,
-        },
-        rollupOptions: {
-            external,
-            output: {
-                globals: external.reduce((carry, dep) => {
-                    return Object.assign(carry, {
-                        [dep]: pascalCase(dep)
-                    });
-                }, {}),
+export default ({ command }) => {
+    return defineConfig({
+        build: {
+            sourcemap: command === 'build',
+            lib: {
+                entry: path.resolve(__dirname, 'index.ts'),
+                name: pascalCase(fileName),
+                fileName,
+            },
+            rollupOptions: {
+                external: ['@vue-interface/component-registry', 'vue'],
+                output: {
+                    globals: {
+                        '@vue-interface/component-registry': 'ComponentRegistry',
+                        'vue': 'Vue'
+                    },
+                }
+            },
+            watch: !process.env.NODE_ENV && {
+                include: [
+                    './tailwindcss/**/*.js'
+                ]
             }
         },
-        watch: !process.env.NODE_ENV && {
-            include: [
-                './tailwindcss/**/*.js'
-            ]
-        }
-    },
-    plugins: [
-        vue(),
-        dts()
-    ],
-});
+        plugins: [
+            vue(),
+            dts()
+        ],
+    });
+};
