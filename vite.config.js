@@ -12,34 +12,32 @@ const external = [
     ...(pkg.peerDependencies ? Object.keys(pkg.peerDependencies) : [])
 ];
 
-
-export default ({ command }) => {
-    return defineConfig({
-        build: {
-            sourcemap: command === 'build',
-            lib: {
-                entry: path.resolve(__dirname, 'index.ts'),
-                name: pascalCase(fileName),
-                fileName,
-            },
-            rollupOptions: {
-                external: ['@vue-interface/component-registry', 'vue'],
-                output: {
-                    globals: {
-                        '@vue-interface/component-registry': 'ComponentRegistry',
-                        'vue': 'Vue'
-                    },
-                }
-            },
-            watch: !process.env.NODE_ENV && {
-                include: [
-                    './tailwindcss/**/*.js'
-                ]
+export default ({ command }) => defineConfig({
+    build: {
+        sourcemap: command === 'build',
+        lib: {
+            entry: path.resolve(__dirname, 'index.ts'),
+            name: pascalCase(fileName),
+            fileName,
+        },
+        rollupOptions: {
+            external,
+            output: {
+                globals: external.reduce((carry, dep) => {
+                    return Object.assign(carry, {
+                        [dep]: pascalCase(dep)
+                    });
+                }, {}),
             }
         },
-        plugins: [
-            vue(),
-            dts()
-        ],
-    });
-};
+        watch: !process.env.NODE_ENV && {
+            include: [
+                './tailwindcss/**/*.js'
+            ]
+        }
+    },
+    plugins: [
+        vue(),
+        dts()
+    ],
+});
