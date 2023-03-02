@@ -123,7 +123,7 @@ export default defineComponent({
         :class="classes"
         :style="style">
         <div class="activity-indicator-content">
-            <component
+            <Component
                 :is="component()"
                 class="mx-auto" />
             <div
