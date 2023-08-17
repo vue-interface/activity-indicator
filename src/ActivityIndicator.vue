@@ -1,7 +1,7 @@
 <script lang="ts">
 import { ComponentRegistry } from '@vue-interface/component-registry';
 import { defineComponent, inject, toRaw } from 'vue';
-import { registry } from './registry';
+import { registry } from './registry.js';
 
 function unit(value: any, uom = 'px'): string|undefined {
     return value !== null
