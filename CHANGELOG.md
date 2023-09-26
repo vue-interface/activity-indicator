@@ -1,3 +1,10 @@
+# [2.0.0-beta.20](https://github.com/vue-interface/activity-indicator/compare/v2.0.0-beta.19...v2.0.0-beta.20) (2023-09-26)
+
+
+### Bug Fixes
+
+* updated tsconfig ([a79bba1](https://github.com/vue-interface/activity-indicator/commit/a79bba1d03b1a44be259b21ff81dd516b9ce343c))
+
 # [2.0.0-beta.19](https://github.com/vue-interface/activity-indicator/compare/v2.0.0-beta.18...v2.0.0-beta.19) (2023-09-22)
 
 
